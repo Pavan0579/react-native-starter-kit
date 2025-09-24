@@ -46,7 +46,8 @@ export default function StoreDetailScreen() {
 
   const handleCheckIn = () => {
     console.log('Check in pressed for store:', id);
-    // Add check-in logic here
+    // Navigate to verification screen
+    router.push(`/store/${id}/verification`);
   };
 
   const StatusBarComponent = () => (
