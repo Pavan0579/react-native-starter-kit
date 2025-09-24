@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import { Image } from 'expo-image';
 import { useThemeColor } from '@/hooks/use-theme-color';
+import { router } from 'expo-router';
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
@@ -24,6 +25,8 @@ export default function LoginScreen() {
 
   const handleLogin = () => {
     console.log('Login pressed', { email, password });
+    // Navigate to dashboard after login
+    router.push('/dashboard');
   };
 
   const handleSignUp = () => {
