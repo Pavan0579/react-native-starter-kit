@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import Svg, { Circle, Path } from 'react-native-svg';
 import { useThemeColor } from '@/hooks/use-theme-color';
+import { router } from 'expo-router';
 
 const { width: screenWidth } = Dimensions.get('window');
 
