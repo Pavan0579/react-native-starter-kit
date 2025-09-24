@@ -70,9 +70,12 @@ export default function VerificationScreen() {
 
       <View style={styles.content}>
         <View style={styles.mapPlaceholder}>
-          {/* Map/location animation placeholder */}
+          <View style={styles.mapBackground}>
+            {/* Location animation would go here - using placeholder background */}
+            <View style={styles.locationIndicator} />
+          </View>
         </View>
-        
+
         <View style={styles.messageContainer}>
           <Text style={styles.verificationMessage}>Verifying and checking in...</Text>
         </View>
@@ -177,6 +180,26 @@ const styles = StyleSheet.create({
     marginBottom: 100,
     alignSelf: 'center',
     maxWidth: Dimensions.get('window').width - 32,
+    overflow: 'hidden',
+  },
+  mapBackground: {
+    width: '100%',
+    height: '100%',
+    backgroundColor: '#E8E8E8',
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'relative',
+  },
+  locationIndicator: {
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    backgroundColor: '#2F80ED',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
   },
   messageContainer: {
     position: 'absolute',
