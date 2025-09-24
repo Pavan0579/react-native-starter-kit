@@ -138,9 +138,9 @@ export default function ActivitiesScreen() {
       </View>
       {activity.completed ? (
         <View style={styles.completedIcon}>
-          <Circle cx="15.5" cy="15.5" r="15.5" fill="#2F80ED"/>
-          <Svg style={styles.checkIcon} width="17" height="17" viewBox="0 0 17 17" fill="none">
-            <Path d="M13.6667 4.625L6.5625 11.7292L3.33334 8.5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          <Svg width="31" height="31" viewBox="0 0 31 31" fill="none">
+            <Circle cx="15.5" cy="15.5" r="15.5" fill="#2F80ED"/>
+            <Path d="M13.6667 4.625L6.5625 11.7292L3.33334 8.5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" transform="translate(7.83, 7.88)"/>
           </Svg>
         </View>
       ) : (
@@ -360,12 +360,8 @@ const styles = StyleSheet.create({
   completedIcon: {
     width: 31,
     height: 31,
-    position: 'relative',
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  checkIcon: {
-    position: 'absolute',
   },
   startButton: {
     flexDirection: 'row',
