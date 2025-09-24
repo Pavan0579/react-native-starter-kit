@@ -18,12 +18,12 @@ export const Colors = {
     tabIconSelected: tintColorLight,
   },
   dark: {
-    text: '#ECEDEE',
-    background: '#151718',
-    tint: tintColorDark,
-    icon: '#9BA1A6',
-    tabIconDefault: '#9BA1A6',
-    tabIconSelected: tintColorDark,
+    text: '#11181C', // Use dark text on white background
+    background: '#fff', // Force white background even in dark mode
+    tint: tintColorLight, // Use light theme tint
+    icon: '#687076', // Use light theme icons
+    tabIconDefault: '#687076',
+    tabIconSelected: tintColorLight,
   },
 };
 
