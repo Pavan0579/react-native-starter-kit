@@ -1,5 +1,5 @@
 import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import { Platform, StyleSheet, TouchableOpacity } from 'react-native';
 
 import { HelloWave } from '@/components/hello-wave';
 import ParallaxScrollView from '@/components/parallax-scroll-view';
@@ -10,18 +10,18 @@ import { Link } from 'expo-router';
 export default function HomeScreen() {
   return (
     <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
+      headerBackgroundColor={{ light: '#ffffff', dark: '#ffffff' }}
       headerImage={
         <Image
           source={require('@/assets/images/partial-react-logo.png')}
           style={styles.reactLogo}
         />
       }>
-      <ThemedView style={styles.titleContainer}>
+      <ThemedView style={[styles.titleContainer, { backgroundColor: '#ffffff' }]}>
         <ThemedText type="title">Welcome!</ThemedText>
         <HelloWave />
       </ThemedView>
-      <ThemedView style={styles.stepContainer}>
+      <ThemedView style={[styles.stepContainer, { backgroundColor: '#ffffff' }]}>
         <ThemedText type="subtitle">Step 1: Try it</ThemedText>
         <ThemedText>
           Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
@@ -36,35 +36,20 @@ export default function HomeScreen() {
           to open developer tools.
         </ThemedText>
       </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
+      <ThemedView style={[styles.stepContainer, { backgroundColor: '#ffffff' }]}>
+        <Link href="/login">
+          <ThemedText type="subtitle">Go to Login</ThemedText>
         </Link>
-
         <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
+          Check out the login page at /login to see the form implementation.
         </ThemedText>
+        <Link href="/login" asChild>
+          <TouchableOpacity style={styles.loginButton}>
+            <ThemedText style={styles.loginButtonText}>Login</ThemedText>
+          </TouchableOpacity>
+        </Link>
       </ThemedView>
-      <ThemedView style={styles.stepContainer}>
+      <ThemedView style={[styles.stepContainer, { backgroundColor: '#ffffff' }]}>
         <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
         <ThemedText>
           {`When you're ready, run `}
@@ -94,5 +79,20 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     position: 'absolute',
+  },
+  loginButton: {
+    width: '100%',
+    height: 50,
+    backgroundColor: '#2F80ED',
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 8,
+  },
+  loginButtonText: {
+    color: '#ffffff',
+    fontSize: 17,
+    fontWeight: '500',
+    letterSpacing: -0.17,
   },
 });
