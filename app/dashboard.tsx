@@ -201,7 +201,11 @@ export default function DashboardScreen() {
 
         <View style={styles.storesList}>
           {stores.map((store) => (
-            <View key={store.id} style={styles.storeCard}>
+            <TouchableOpacity
+              key={store.id}
+              style={styles.storeCard}
+              onPress={() => router.push(`/store/${store.id}`)}
+            >
               <View style={styles.storeIconContainer}>
                 {store.completed ? (
                   <View style={styles.completedIcon}>
@@ -242,7 +246,7 @@ export default function DashboardScreen() {
                 <Text style={styles.visitText}>{store.visits}</Text>
                 <Text style={styles.visitLabel}>Visits</Text>
               </View>
-            </View>
+            </TouchableOpacity>
           ))}
         </View>
       </ScrollView>
