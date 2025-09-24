@@ -1,5 +1,5 @@
 import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import { Platform, StyleSheet, TouchableOpacity } from 'react-native';
 
 import { HelloWave } from '@/components/hello-wave';
 import ParallaxScrollView from '@/components/parallax-scroll-view';
@@ -43,6 +43,11 @@ export default function HomeScreen() {
         <ThemedText>
           Check out the login page at /login to see the form implementation.
         </ThemedText>
+        <Link href="/login" asChild>
+          <TouchableOpacity style={styles.loginButton}>
+            <ThemedText style={styles.loginButtonText}>Login</ThemedText>
+          </TouchableOpacity>
+        </Link>
       </ThemedView>
       <ThemedView style={[styles.stepContainer, { backgroundColor: '#ffffff' }]}>
         <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
@@ -74,5 +79,20 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     position: 'absolute',
+  },
+  loginButton: {
+    width: '100%',
+    height: 50,
+    backgroundColor: '#2F80ED',
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 8,
+  },
+  loginButtonText: {
+    color: '#ffffff',
+    fontSize: 17,
+    fontWeight: '500',
+    letterSpacing: -0.17,
   },
 });
