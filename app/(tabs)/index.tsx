@@ -1,11 +1,12 @@
 import { Image } from 'expo-image';
-import { Platform, StyleSheet, TouchableOpacity } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 
 import { HelloWave } from '@/components/hello-wave';
 import ParallaxScrollView from '@/components/parallax-scroll-view';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Link } from 'expo-router';
+import { Button, spacing, colors } from '@/design-system/components';
 
 export default function HomeScreen() {
   return (
@@ -44,9 +45,7 @@ export default function HomeScreen() {
           Check out the login page at /login to see the form implementation.
         </ThemedText>
         <Link href="/login" asChild>
-          <TouchableOpacity style={styles.loginButton}>
-            <ThemedText style={styles.loginButtonText}>Login</ThemedText>
-          </TouchableOpacity>
+          <Button title="Login" />
         </Link>
       </ThemedView>
       <ThemedView style={[styles.stepContainer, { backgroundColor: '#ffffff' }]}>
@@ -67,11 +66,11 @@ const styles = StyleSheet.create({
   titleContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
+    gap: spacing.sm,
   },
   stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+    gap: spacing.sm,
+    marginBottom: spacing.sm,
   },
   reactLogo: {
     height: 178,
@@ -79,20 +78,5 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     position: 'absolute',
-  },
-  loginButton: {
-    width: '100%',
-    height: 50,
-    backgroundColor: '#2F80ED',
-    borderRadius: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 8,
-  },
-  loginButtonText: {
-    color: '#ffffff',
-    fontSize: 17,
-    fontWeight: '500',
-    letterSpacing: -0.17,
   },
 });

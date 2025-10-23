@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import {
   View,
-  Text,
-  TextInput,
-  TouchableOpacity,
   StyleSheet,
   SafeAreaView,
   StatusBar,
@@ -11,8 +8,8 @@ import {
   Dimensions,
 } from 'react-native';
 import { Image } from 'expo-image';
-import { useThemeColor } from '@/hooks/use-theme-color';
 import { router } from 'expo-router';
+import { Button, TextInput, LabelLarge, DisplayTitle, spacing, colors } from '@/design-system/components';
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
@@ -20,12 +17,8 @@ export default function LoginScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const backgroundColor = useThemeColor({}, 'background');
-  const textColor = useThemeColor({}, 'text');
-
   const handleLogin = () => {
     console.log('Login pressed', { email, password });
-    // Navigate to dashboard after login
     router.push('/dashboard');
   };
 
@@ -34,13 +27,11 @@ export default function LoginScreen() {
   };
 
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor: '#ffffff' }]}>
-      <StatusBar barStyle="dark-content" backgroundColor="#ffffff" />
+    <SafeAreaView style={[styles.container, { backgroundColor: colors.neutral.white }]}>
+      <StatusBar barStyle="dark-content" backgroundColor={colors.neutral.white} />
 
       <View style={styles.statusBarContainer}>
-        <View style={styles.statusBarLeft}>
-          <Text style={styles.timeText}>9:41</Text>
-        </View>
+        <View style={styles.statusBarLeft} />
         <View style={styles.statusBarRight}>
           <View style={styles.signalBars}>
             <View style={[styles.signalBar, styles.bar1]} />
@@ -48,9 +39,7 @@ export default function LoginScreen() {
             <View style={[styles.signalBar, styles.bar3]} />
             <View style={[styles.signalBar, styles.bar4]} />
           </View>
-          <View style={styles.wifiIcon}>
-            <Text style={styles.iconText}>📶</Text>
-          </View>
+          <View style={styles.wifiIcon} />
           <View style={styles.batteryIcon}>
             <View style={styles.batteryFrame}>
               <View style={styles.batteryFill} />
@@ -68,13 +57,13 @@ export default function LoginScreen() {
           />
         </View>
 
-        <Text style={[styles.loginTitle, { color: textColor }]}>Login</Text>
+        <DisplayTitle color={colors.neutral.dark} style={styles.loginTitle}>
+          Login
+        </DisplayTitle>
 
         <View style={styles.inputContainer}>
           <TextInput
-            style={[styles.input, { borderColor: 'rgba(0, 0, 0, 0.15)', color: textColor }]}
             placeholder="Enter your email"
-            placeholderTextColor="#BDBDBD"
             value={email}
             onChangeText={setEmail}
             keyboardType="email-address"
@@ -83,9 +72,7 @@ export default function LoginScreen() {
           />
 
           <TextInput
-            style={[styles.input, { borderColor: 'rgba(0, 0, 0, 0.15)', color: textColor }]}
             placeholder="Enter your password"
-            placeholderTextColor="#BDBDBD"
             value={password}
             onChangeText={setPassword}
             secureTextEntry
@@ -94,15 +81,18 @@ export default function LoginScreen() {
           />
         </View>
 
-        <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
-          <Text style={styles.loginButtonText}>Login</Text>
-        </TouchableOpacity>
+        <Button title="Login" onPress={handleLogin} />
 
         <View style={styles.signUpContainer}>
-          <Text style={styles.signUpText}>Don't have account? </Text>
-          <TouchableOpacity onPress={handleSignUp}>
-            <Text style={styles.signUpLink}>Sign up</Text>
-          </TouchableOpacity>
+          <LabelLarge color={colors.neutral.dark}>
+            Don't have account?{' '}
+          </LabelLarge>
+          <Button
+            title="Sign up"
+            variant="text"
+            onPress={handleSignUp}
+            fullWidth={false}
+          />
         </View>
       </View>
 
@@ -114,29 +104,23 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.neutral.white,
   },
   statusBarContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 16,
+    paddingHorizontal: spacing.lg,
     paddingTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight || 0,
     height: 44,
   },
   statusBarLeft: {
     flex: 1,
   },
-  timeText: {
-    fontSize: 17,
-    fontWeight: '600',
-    color: '#333333',
-    letterSpacing: -0.68,
-  },
   statusBarRight: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 4,
+    gap: spacing.xs,
   },
   signalBars: {
     flexDirection: 'row',
@@ -146,31 +130,19 @@ const styles = StyleSheet.create({
     height: 14,
   },
   signalBar: {
-    backgroundColor: '#333333',
+    backgroundColor: colors.neutral.dark,
     borderRadius: 1,
     width: 3,
   },
-  bar1: {
-    height: 5,
-  },
-  bar2: {
-    height: 7,
-  },
-  bar3: {
-    height: 10,
-  },
-  bar4: {
-    height: 12,
-  },
+  bar1: { height: 5 },
+  bar2: { height: 7 },
+  bar3: { height: 10 },
+  bar4: { height: 12 },
   wifiIcon: {
     width: 20,
     height: 12,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  iconText: {
-    fontSize: 12,
-    color: '#333333',
   },
   batteryIcon: {
     width: 28,
@@ -183,7 +155,7 @@ const styles = StyleSheet.create({
     height: 13,
     borderRadius: 3.5,
     borderWidth: 1,
-    borderColor: '#333333',
+    borderColor: colors.neutral.dark,
     opacity: 0.4,
     justifyContent: 'center',
     alignItems: 'center',
@@ -191,19 +163,19 @@ const styles = StyleSheet.create({
   batteryFill: {
     width: 21,
     height: 9,
-    backgroundColor: '#333333',
+    backgroundColor: colors.neutral.dark,
     borderRadius: 1.33,
   },
   content: {
     flex: 1,
-    paddingHorizontal: 16,
+    paddingHorizontal: spacing.lg,
     justifyContent: 'center',
     alignItems: 'center',
   },
   imageContainer: {
     width: screenWidth * 0.65,
     height: screenHeight * 0.25,
-    marginBottom: 40,
+    marginBottom: spacing['3xl'],
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -213,63 +185,26 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   loginTitle: {
-    fontSize: 34,
-    fontWeight: '500',
-    letterSpacing: -0.34,
-    marginBottom: 40,
+    marginBottom: spacing['3xl'],
     alignSelf: 'flex-start',
-    color: '#333333',
   },
   inputContainer: {
     width: '100%',
-    gap: 20,
-    marginBottom: 30,
-  },
-  input: {
-    height: 50,
-    borderWidth: 1,
-    borderRadius: 10,
-    paddingHorizontal: 20,
-    fontSize: 17,
-    letterSpacing: -0.17,
-    backgroundColor: '#ffffff',
-  },
-  loginButton: {
-    width: '100%',
-    height: 50,
-    backgroundColor: '#2F80ED',
-    borderRadius: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 30,
-  },
-  loginButtonText: {
-    color: '#ffffff',
-    fontSize: 17,
-    fontWeight: '500',
-    letterSpacing: -0.17,
+    gap: spacing.lg,
+    marginBottom: spacing['2xl'],
   },
   signUpContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  signUpText: {
-    fontSize: 15,
-    color: '#333333',
-    letterSpacing: -0.15,
-  },
-  signUpLink: {
-    fontSize: 15,
-    color: '#6E85E3',
-    letterSpacing: -0.15,
+    marginTop: spacing.xl,
   },
   homeIndicator: {
     width: 134,
     height: 5,
-    backgroundColor: '#333333',
+    backgroundColor: colors.neutral.dark,
     borderRadius: 100,
     alignSelf: 'center',
-    marginBottom: Platform.OS === 'ios' ? 8 : 16,
+    marginBottom: Platform.OS === 'ios' ? spacing.sm : spacing.lg,
   },
 });

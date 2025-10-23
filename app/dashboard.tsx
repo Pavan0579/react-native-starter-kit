@@ -1,17 +1,17 @@
+import { router } from 'expo-router';
 import React, { useState } from 'react';
 import {
-  View,
+  Dimensions,
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
   Text,
   TouchableOpacity,
-  StyleSheet,
-  SafeAreaView,
-  StatusBar,
-  ScrollView,
-  Dimensions,
+  View,
 } from 'react-native';
-import Svg, { Circle, Path } from 'react-native-svg';
-import { useThemeColor } from '@/hooks/use-theme-color';
-import { router } from 'expo-router';
+import Svg, { Circle, Path, Stop } from 'react-native-svg';
+import { Heading1, Heading2, BodyLargeSemibold, LabelMedium, spacing, colors } from '@/design-system/components';
 
 const { width: screenWidth } = Dimensions.get('window');
 
@@ -56,7 +56,6 @@ const stores = [
 
 export default function DashboardScreen() {
   const [activeTab, setActiveTab] = useState('Monthly Visit');
-  const backgroundColor = useThemeColor({}, 'background');
 
   const StatusBarComponent = () => (
     <View style={styles.statusBarContainer}>
@@ -106,8 +105,8 @@ export default function DashboardScreen() {
         />
         <defs>
           <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#125DCE" />
-            <stop offset="100%" stopColor="#2F80ED" />
+            <Stop offset="0%" stopColor="#125DCE" />
+            <Stop offset="100%" stopColor="#2F80ED" />
           </linearGradient>
         </defs>
       </Svg>
@@ -120,12 +119,12 @@ export default function DashboardScreen() {
   );
 
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor: '#ffffff' }]}>
-      <StatusBar barStyle="dark-content" backgroundColor="#ffffff" />
+    <SafeAreaView style={[styles.container, { backgroundColor: colors.neutral.white }]}>
+      <StatusBar barStyle="dark-content" backgroundColor={colors.neutral.white} />
       <StatusBarComponent />
-      
+
       <View style={styles.header}>
-        <Text style={styles.appTitle}>StoreScan</Text>
+        <Heading1 color={colors.neutral.dark}>StoreScan</Heading1>
         <View style={styles.headerRight}>
           <View style={styles.notificationContainer}>
             <Svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -165,12 +164,22 @@ export default function DashboardScreen() {
           {months.map((month, index) => (
             <TouchableOpacity
               key={index}
-              style={[styles.monthCard, month.active && styles.monthCardActive]}
+              style={[
+                styles.monthCard,
+                month.active && styles.monthCardActive,
+                { backgroundColor: month.active ? colors.primary.blue : colors.neutral.lighter }
+              ]}
             >
-              <Text style={[styles.monthText, month.active && styles.monthTextActive]}>
+              <Text style={[
+                styles.monthText,
+                { color: month.active ? colors.neutral.white : colors.primary.darkBlue }
+              ]}>
                 {month.name}
               </Text>
-              <Text style={[styles.yearText, month.active && styles.yearTextActive]}>
+              <Text style={[
+                styles.yearText,
+                { color: month.active ? colors.neutral.white : colors.primary.darkBlue }
+              ]}>
                 {month.year}
               </Text>
             </TouchableOpacity>
@@ -195,8 +204,8 @@ export default function DashboardScreen() {
         <CircularProgress />
 
         <View style={styles.visitsHeader}>
-          <Text style={styles.visitsTitle}>Visits</Text>
-          <Text style={styles.visitsSubtitle}>April, 2024</Text>
+          <Heading2 color={colors.neutral.dark}>Visits</Heading2>
+          <LabelMedium color={colors.neutral.medium} style={{ marginTop: spacing.sm }}>April, 2024</LabelMedium>
         </View>
 
         <View style={styles.storesList}>
@@ -237,10 +246,10 @@ export default function DashboardScreen() {
                 )}
               </View>
               <View style={styles.storeInfo}>
-                <Text style={[styles.storeName, store.completed && styles.storeNameCompleted]}>
+                <BodyLargeSemibold style={[store.completed && { textDecorationLine: 'line-through' }]}>
                   {store.name}
-                </Text>
-                <Text style={styles.storeVisit}>{store.lastVisit}</Text>
+                </BodyLargeSemibold>
+                <LabelMedium color={colors.neutral.medium}>{store.lastVisit}</LabelMedium>
               </View>
               <View style={styles.visitBadge}>
                 <Text style={styles.visitText}>{store.visits}</Text>
@@ -257,25 +266,25 @@ export default function DashboardScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.neutral.white,
   },
   statusBarContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 16,
+    paddingHorizontal: spacing.lg,
     height: 44,
   },
   timeText: {
     fontSize: 17,
     fontWeight: '600',
-    color: '#333333',
+    color: colors.neutral.dark,
     letterSpacing: -0.68,
   },
   statusBarRight: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 4,
+    gap: spacing.xs,
   },
   signalBars: {
     flexDirection: 'row',
@@ -285,7 +294,7 @@ const styles = StyleSheet.create({
     height: 14,
   },
   signalBar: {
-    backgroundColor: '#333333',
+    backgroundColor: colors.neutral.dark,
     borderRadius: 1,
     width: 3,
   },
@@ -304,7 +313,7 @@ const styles = StyleSheet.create({
     height: 13,
     borderRadius: 3.5,
     borderWidth: 1,
-    borderColor: '#333333',
+    borderColor: colors.neutral.dark,
     opacity: 0.4,
     justifyContent: 'center',
     alignItems: 'center',
@@ -312,26 +321,20 @@ const styles = StyleSheet.create({
   batteryFill: {
     width: 21,
     height: 9,
-    backgroundColor: '#333333',
+    backgroundColor: colors.neutral.dark,
     borderRadius: 1.33,
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 16,
-    paddingVertical: 16,
-  },
-  appTitle: {
-    fontSize: 24,
-    fontWeight: '500',
-    color: '#000000',
-    letterSpacing: -0.24,
+    paddingHorizontal: spacing.lg,
+    paddingVertical: spacing.lg,
   },
   headerRight: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
+    gap: spacing.md,
   },
   notificationContainer: {
     position: 'relative',
@@ -343,12 +346,12 @@ const styles = StyleSheet.create({
     width: 13,
     height: 13,
     borderRadius: 6.5,
-    backgroundColor: '#E7343E',
+    backgroundColor: colors.status.error,
     justifyContent: 'center',
     alignItems: 'center',
   },
   badgeText: {
-    color: '#ffffff',
+    color: colors.neutral.white,
     fontSize: 8,
     fontWeight: '700',
     letterSpacing: -0.08,
@@ -358,73 +361,64 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    paddingHorizontal: 16,
+    paddingHorizontal: spacing.lg,
   },
   monthsContainer: {
     flexDirection: 'row',
-    gap: 12,
-    marginBottom: 24,
+    gap: spacing.md,
+    marginBottom: spacing['2xl'],
   },
   monthCard: {
     width: 54,
     height: 50,
-    backgroundColor: '#E3EBF8',
     borderRadius: 7,
     justifyContent: 'center',
     alignItems: 'center',
-    gap: 1,
+    gap: spacing.xs,
   },
-  monthCardActive: {
-    backgroundColor: '#2F80ED',
-  },
+  monthCardActive: {},
   monthText: {
     fontSize: 17,
     fontWeight: '500',
-    color: '#294FB8',
     letterSpacing: -0.17,
   },
-  monthTextActive: {
-    color: '#ffffff',
-  },
+  monthTextActive: {},
   yearText: {
     fontSize: 10,
     fontWeight: '400',
-    color: '#294FB8',
     letterSpacing: -0.1,
   },
-  yearTextActive: {
-    color: '#ffffff',
-  },
+  yearTextActive: {},
   tabContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    marginBottom: 24,
+    marginBottom: spacing['2xl'],
     borderBottomWidth: 1,
-    borderBottomColor: '#BDBDBD',
+    borderBottomColor: colors.neutral.light,
   },
   tab: {
-    paddingVertical: 12,
+    paddingVertical: spacing.md,
     alignItems: 'center',
   },
   tabText: {
     fontSize: 17,
     fontWeight: '400',
-    color: '#828282',
+    color: colors.neutral.medium,
     letterSpacing: -0.17,
   },
   tabTextActive: {
-    color: '#333333',
+    color: colors.neutral.dark,
     fontWeight: '700',
   },
   tabIndicator: {
     width: 92,
     height: 2,
-    backgroundColor: '#333333',
-    marginTop: 12,
+    backgroundColor: colors.neutral.dark,
+    marginTop: spacing.md,
   },
   progressContainer: {
     alignItems: 'center',
-    marginBottom: 24,
+    marginBottom: spacing['2xl'],
     position: 'relative',
   },
   progressTextContainer: {
@@ -439,50 +433,37 @@ const styles = StyleSheet.create({
   completedText: {
     fontSize: 12,
     fontWeight: '500',
-    color: '#000000',
+    color: colors.neutral.black,
     letterSpacing: -0.12,
   },
   progressNumber: {
     fontSize: 20,
     fontWeight: '400',
-    color: '#000000',
+    color: colors.neutral.black,
     letterSpacing: -0.2,
-    marginVertical: 4,
+    marginVertical: spacing.sm,
   },
   targetText: {
     fontSize: 10,
     fontWeight: '400',
-    color: '#B0B0B0',
+    color: colors.neutral.light,
     letterSpacing: -0.1,
   },
   visitsHeader: {
-    marginBottom: 16,
-  },
-  visitsTitle: {
-    fontSize: 24,
-    fontWeight: '500',
-    color: '#000000',
-    letterSpacing: -0.24,
-  },
-  visitsSubtitle: {
-    fontSize: 13,
-    fontWeight: '400',
-    color: '#828282',
-    letterSpacing: -0.13,
-    marginTop: 2,
+    marginBottom: spacing.lg,
   },
   storesList: {
-    gap: 12,
-    paddingBottom: 20,
+    gap: spacing.md,
+    paddingBottom: spacing.lg,
   },
   storeCard: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 20,
+    padding: spacing.xl,
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: '#BDBDBD',
-    gap: 12,
+    borderColor: colors.neutral.light,
+    gap: spacing.md,
   },
   storeIconContainer: {
     width: 24,
@@ -492,7 +473,7 @@ const styles = StyleSheet.create({
     width: 24,
     height: 24,
     borderRadius: 12,
-    backgroundColor: '#2F80ED',
+    backgroundColor: colors.primary.blue,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -504,22 +485,7 @@ const styles = StyleSheet.create({
   },
   storeInfo: {
     flex: 1,
-    gap: 3,
-  },
-  storeName: {
-    fontSize: 17,
-    fontWeight: '400',
-    color: '#333333',
-    letterSpacing: -0.17,
-  },
-  storeNameCompleted: {
-    textDecorationLine: 'line-through',
-  },
-  storeVisit: {
-    fontSize: 10,
-    fontWeight: '400',
-    color: '#828282',
-    letterSpacing: -0.1,
+    gap: spacing.xs,
   },
   visitBadge: {
     alignItems: 'center',
@@ -530,14 +496,14 @@ const styles = StyleSheet.create({
   visitText: {
     fontSize: 10,
     fontWeight: '500',
-    color: '#000000',
+    color: colors.neutral.black,
     letterSpacing: -0.1,
   },
   visitLabel: {
     fontSize: 8,
     fontWeight: '400',
-    color: '#808080',
+    color: colors.neutral.medium,
     letterSpacing: -0.08,
-    marginTop: 2,
+    marginTop: spacing.xs,
   },
 });

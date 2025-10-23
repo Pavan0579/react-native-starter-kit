@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import Svg, { Path, Ellipse, Circle, Mask, Rect, Defs, LinearGradient, Stop, G, ClipPath, FeFlood, FeBlend, FeGaussianBlur, Filter } from 'react-native-svg';
 import { useLocalSearchParams, router } from 'expo-router';
-import { useThemeColor } from '@/hooks/use-theme-color';
+import { Button, Heading2, Heading3, BodyLargeSemibold, LabelSmall, Body, spacing, colors } from '@/design-system/components';
 
 const { width: screenWidth } = Dimensions.get('window');
 
@@ -38,7 +38,6 @@ const activities = [
 
 export default function StoreDetailScreen() {
   const { id } = useLocalSearchParams();
-  const backgroundColor = useThemeColor({}, 'background');
 
   const handleBack = () => {
     router.back();
@@ -159,32 +158,32 @@ export default function StoreDetailScreen() {
   );
 
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor: '#ffffff' }]}>
-      <StatusBar barStyle="dark-content" backgroundColor="#ffffff" />
+    <SafeAreaView style={[styles.container, { backgroundColor: colors.neutral.white }]}>
+      <StatusBar barStyle="dark-content" backgroundColor={colors.neutral.white} />
       <StatusBarComponent />
-      
+
       <View style={styles.header}>
         <TouchableOpacity style={styles.backButton} onPress={handleBack}>
           <Svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <Path d="M7 18L1 12L7 6" stroke="#333333" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <Path d="M7 18L1 12L7 6" stroke={colors.neutral.dark} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
           </Svg>
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Store-{id}</Text>
+        <Heading2 color={colors.neutral.dark} style={styles.headerTitle}>Store-{id}</Heading2>
         <View style={styles.headerSpacer} />
       </View>
 
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
-        <Text style={styles.sectionTitle}>Location</Text>
+        <Heading3 color={colors.neutral.dark} style={{ marginBottom: spacing.lg }}>Location</Heading3>
         
         <MapComponent />
         
-        <View style={styles.contactCard}>
-          <Text style={styles.contactLabel}>Contact</Text>
-          <Text style={styles.contactName}>Thomas James</Text>
-          <Text style={styles.contactPhone}>+1 (602) 218-3333</Text>
+        <View style={[styles.contactCard, { borderColor: colors.neutral.medium }]}>
+          <LabelSmall color={colors.neutral.medium} style={{ marginBottom: spacing.xs }}>Contact</LabelSmall>
+          <BodyLargeSemibold color={colors.neutral.medium} style={{ marginBottom: spacing.sm }}>Thomas James</BodyLargeSemibold>
+          <Body color={colors.primary.blue}>+1 (602) 218-3333</Body>
         </View>
 
-        <Text style={styles.sectionTitle}>Activities</Text>
+        <Heading3 color={colors.neutral.dark} style={{ marginTop: spacing['2xl'], marginBottom: spacing.lg }}>Activities</Heading3>
         
         <View style={styles.activitiesContainer}>
           {activities.map((activity) => (
@@ -193,9 +192,11 @@ export default function StoreDetailScreen() {
         </View>
       </ScrollView>
 
-      <TouchableOpacity style={styles.checkInButton} onPress={handleCheckIn}>
-        <Text style={styles.checkInButtonText}>Check In</Text>
-      </TouchableOpacity>
+      <Button
+        title="Check In"
+        onPress={handleCheckIn}
+        style={{ marginHorizontal: spacing.lg, marginBottom: spacing.lg }}
+      />
     </SafeAreaView>
   );
 }
@@ -203,25 +204,25 @@ export default function StoreDetailScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.neutral.white,
   },
   statusBarContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 16,
+    paddingHorizontal: spacing.lg,
     height: 44,
   },
   timeText: {
     fontSize: 17,
     fontWeight: '600',
-    color: '#333333',
+    color: colors.neutral.dark,
     letterSpacing: -0.68,
   },
   statusBarRight: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 4,
+    gap: spacing.xs,
   },
   signalBars: {
     flexDirection: 'row',
@@ -231,7 +232,7 @@ const styles = StyleSheet.create({
     height: 14,
   },
   signalBar: {
-    backgroundColor: '#333333',
+    backgroundColor: colors.neutral.dark,
     borderRadius: 1,
     width: 3,
   },
@@ -250,7 +251,7 @@ const styles = StyleSheet.create({
     height: 13,
     borderRadius: 3.5,
     borderWidth: 1,
-    borderColor: '#333333',
+    borderColor: colors.neutral.dark,
     opacity: 0.4,
     justifyContent: 'center',
     alignItems: 'center',
@@ -258,46 +259,35 @@ const styles = StyleSheet.create({
   batteryFill: {
     width: 21,
     height: 9,
-    backgroundColor: '#333333',
+    backgroundColor: colors.neutral.dark,
     borderRadius: 1.33,
   },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 16,
-    paddingVertical: 16,
+    paddingHorizontal: spacing.lg,
+    paddingVertical: spacing.lg,
   },
   backButton: {
-    padding: 4,
+    padding: spacing.xs,
   },
   headerTitle: {
-    fontSize: 20,
-    fontWeight: '500',
-    color: '#000000',
-    letterSpacing: -0.2,
     flex: 1,
     textAlign: 'center',
-    marginRight: 32, // Compensate for back button width
+    marginRight: 32,
   },
   headerSpacer: {
     width: 32,
   },
   content: {
     flex: 1,
-    paddingHorizontal: 16,
-  },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: '500',
-    color: '#000000',
-    letterSpacing: -0.18,
-    marginBottom: 16,
+    paddingHorizontal: spacing.lg,
   },
   mapContainer: {
     height: 300,
     borderRadius: 10,
-    backgroundColor: '#F0F0F0',
-    marginBottom: 24,
+    backgroundColor: colors.neutral.pale,
+    marginBottom: spacing['2xl'],
     justifyContent: 'center',
     alignItems: 'center',
     overflow: 'hidden',
@@ -305,7 +295,7 @@ const styles = StyleSheet.create({
   mapBackground: {
     width: '100%',
     height: '100%',
-    backgroundColor: '#E8E8E8',
+    backgroundColor: colors.neutral.lighter,
     justifyContent: 'center',
     alignItems: 'center',
     position: 'relative',
@@ -316,35 +306,14 @@ const styles = StyleSheet.create({
   contactCard: {
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#B0B0B0',
-    backgroundColor: '#ffffff',
-    padding: 20,
-    marginBottom: 24,
-  },
-  contactLabel: {
-    fontSize: 12,
-    fontWeight: '500',
-    color: '#808080',
-    letterSpacing: -0.12,
-    marginBottom: 4,
-  },
-  contactName: {
-    fontSize: 14,
-    fontWeight: '700',
-    color: '#808080',
-    letterSpacing: -0.14,
-    marginBottom: 8,
-  },
-  contactPhone: {
-    fontSize: 18,
-    fontWeight: '400',
-    color: '#000000',
-    letterSpacing: -0.18,
+    backgroundColor: colors.neutral.white,
+    padding: spacing.xl,
+    marginBottom: spacing['2xl'],
   },
   activitiesContainer: {
     flexDirection: 'row',
-    gap: 8,
-    marginBottom: 24,
+    gap: spacing.sm,
+    marginBottom: spacing['2xl'],
   },
   activityCard: {
     flex: 1,
@@ -354,10 +323,10 @@ const styles = StyleSheet.create({
     width: 109,
     height: 109,
     borderRadius: 8,
-    backgroundColor: '#F1F1F1',
+    backgroundColor: colors.neutral.pale,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 8,
+    marginBottom: spacing.sm,
   },
   imagingIcon: {
     width: 109,
@@ -374,26 +343,8 @@ const styles = StyleSheet.create({
   activityName: {
     fontSize: 12,
     fontWeight: '500',
-    color: '#000000',
+    color: colors.neutral.dark,
     letterSpacing: -0.12,
     textAlign: 'center',
-  },
-  checkInButton: {
-    backgroundColor: '#2F80ED',
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: 'rgba(0, 0, 0, 0.15)',
-    paddingVertical: 15,
-    paddingHorizontal: 20,
-    marginHorizontal: 16,
-    marginBottom: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  checkInButtonText: {
-    color: '#ffffff',
-    fontSize: 17,
-    fontWeight: '500',
-    letterSpacing: -0.17,
   },
 });

@@ -8,29 +8,29 @@ import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { Fonts } from '@/constants/theme';
+import { Heading1, Body, Caption, spacing, colors } from '@/design-system/components';
 
 export default function TabTwoScreen() {
   return (
     <ParallaxScrollView
-      headerBackgroundColor={{ light: '#ffffff', dark: '#ffffff' }}
+      headerBackgroundColor={{ light: colors.neutral.white, dark: colors.neutral.white }}
       headerImage={
         <IconSymbol
           size={310}
-          color="#808080"
+          color={colors.neutral.medium}
           name="chevron.left.forwardslash.chevron.right"
           style={styles.headerImage}
         />
       }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText
-          type="title"
+      <ThemedView style={[styles.titleContainer, { gap: spacing.md }]}>
+        <Heading1
           style={{
             fontFamily: Fonts.rounded,
           }}>
           Explore
-        </ThemedText>
+        </Heading1>
       </ThemedView>
-      <ThemedText>This app includes example code to help you get started.</ThemedText>
+      <Body color={colors.neutral.dark}>This app includes example code to help you get started.</Body>
       <Collapsible title="File-based routing">
         <ThemedText>
           This app has two screens:{' '}
@@ -100,13 +100,12 @@ export default function TabTwoScreen() {
 
 const styles = StyleSheet.create({
   headerImage: {
-    color: '#808080',
+    color: colors.neutral.medium,
     bottom: -90,
     left: -35,
     position: 'absolute',
   },
   titleContainer: {
     flexDirection: 'row',
-    gap: 8,
   },
 });
